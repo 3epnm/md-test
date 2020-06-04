@@ -1,13 +1,12 @@
-# AIS UDP
+# AIS HTTP
 
-A demon service to dispatch a AIVDM/AIVDO Protocol data stream into MongoDB. 
-Details about this project can be found [here](https://blog.3epnm.de/2020/05/15/AIS-Services/).
+A demon service to poll Position Reports and Static and Voyage Related Data via HTTP and store into MongoDB. Details about this project can be found [here](https://blog.3epnm.de/2020/05/15/AIS-Services/).
 
 ## Installation
 The installation is done by cloning the project and installing the dependencies.
 ```
-git clone https://github.com/3epnm/ais-udp
-cd ais-udp
+git clone https://github.com/3epnm/ais-http
+cd ais-http
 npm install
 ```
 Before the project can be started, the configuration must first be adjusted.
@@ -24,11 +23,19 @@ The configuration file has the following content, which is explained below.
             "useNewUrlParser": true,
             "useUnifiedTopology": true
         },
-        "dbName": "ais_tracker",
+        "dbName": "ais-tracker",
         "sender": "***"
     },
     "dispatcher": {
-        "udpPort": 10110
+        "second": 0,
+        "timeout": 61,
+        "rest": {
+            "username": "***",
+            "latmin": 53.36837696691308,
+            "latmax": 53.60574780621288,
+            "lonmin": 9.652862548828127,
+            "lonmax": 10.244407653808596
+        }
     },
     "logger": {
         "level": "info",
@@ -42,7 +49,7 @@ The configuration file has the following content, which is explained below.
     }
 }
 ```
-### Database section
+##### Database section
 The configuration of the database is as follows:
 
 |Parameter|Description|
@@ -54,10 +61,16 @@ The configuration of the database is as follows:
 
 AIS Tools initializes the database with the necessary collections and more important creates the necessary indexes. Default documents and position documents expire after one day and position documents are set with a geospatial index. Shipdata documents do not expire and will be updated if a new report is received.
 
-### Dispatcher section
-The only configuration option is the the port number of the UDP stream with AIVDM/AIVDO Protocol Reports.
- 
-### Logger section
+##### Dispatcher section
+In the dispatcher section, the configuration the AIShub service is done:
+
+|Parameter|Description|
+|--|--|
+|second<br><br>|The Second of the Minute, when the API is called. Useful, if more then one UDP stream is offered to AISHub and the API can be called more often than once per minute.|
+|timeout<br><br>|The timeout between two API calls. In the example above, 61s is configured which is suitable for AIShub|
+|rest<br><br>|In this subsection, the username for the api request as well as the desired geographic boundery box is configured for which vessels and positions are requested. Refer [API Documentation](http://www.aishub.net/api) page at AIShub. for more details about this service|
+
+##### Logger section
 Logging is done with Winston universal logging library. 
 
 |Parameter|Description|
@@ -68,7 +81,7 @@ Logging is done with Winston universal logging library.
 
 The logger uses the winston-daily-rotate-file to archive log files if used in a debug level for a longer period of time. In addition, the logger can also be controlled via the NODE_ENV environment variable. If set to "debug", the log messages also written to stdout, regardless of whether the filename parameter is set or not.
 
-### SSH section
+##### SSH section
 The following configuration enables an SSH tunnel to be created if required, which is started as a child process.
 
 |Parameter|Description|
@@ -77,6 +90,5 @@ The following configuration enables an SSH tunnel to be created if required, whi
 |forward|Which port from the source is forwarded to a port at the destination|
 |host|The host of the source|
 
-## Start the Service
+#### Start the Service
 Once the configuration is done, the service can be started with `npm start` 
-
