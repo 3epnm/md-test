@@ -75,3 +75,7 @@ The following configuration enables an SSH tunnel to be created if required, whi
 |enabled|Whether the function is used or not|
 |forward|Which port from the source is forwarded to a port at the destination|
 |host|The host of the source|
+
+## Start the Service
+Once the configuration is done, the service can be started with `npm start` 
+
