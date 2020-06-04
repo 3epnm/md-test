@@ -2,7 +2,7 @@
 
 A demon service to dispatch a AIVDM/AIVDO Protocol data stream into MongoDB.
 
-#### Installation
+## Installation
 The installation is done by cloning the project and installing the dependencies.
 ```
 git clone https://github.com/3epnm/ais-udp
@@ -11,7 +11,7 @@ npm install
 ```
 Before the project can be started, the configuration must first be adjusted.
 
-#### Configuration
+## Configuration
 The configuration is carried out with [node-config-ts](https://www.npmjs.com/package/node-config-ts). A simple but effective configuration manager for typescript based projects. The easiest way to adapt the configuration is to adapt the file default.json from the config directory of the project folder. In practice, it has proven useful to use a new configuration file depending on the NODE_ENV variable. How this works is explained in the documentation of node-config-ts. Refer to the npm page [node-config-ts](https://www.npmjs.com/package/node-config-ts) to learn all features it offers. 
 
 The configuration file has the following content, which is explained below.
@@ -41,7 +41,7 @@ The configuration file has the following content, which is explained below.
     }
 }
 ```
-##### Database section
+### Database section
 The configuration of the database is as follows:
 
 |Parameter|Description|
@@ -53,7 +53,7 @@ The configuration of the database is as follows:
 
 AIS Tools initializes the database with the necessary collections and more important creates the necessary indexes. Default documents and position documents expire after one day and position documents are set with a geospatial index. Shipdata documents do not expire and will be updated if a new report is received.
 
-##### Dispatcher section
+### Dispatcher section
 The only configuration option is the the port number of the UDP stream with AIVDM/AIVDO Protocol Reports.
 
 The below image illustrates, how detailed a vessels voyage can be visualized in an area, from which a good reception of AIS Signals is possible. In the shown example, every 2s a position report is recorded.
@@ -62,7 +62,7 @@ The below image illustrates, how detailed a vessels voyage can be visualized in 
 A harbor ferry at the "Landungsbrücken" jetty.
 </p>
  
-##### Logger section
+### Logger section
 Logging is done with Winston universal logging library. 
 
 |Parameter|Description|
@@ -73,7 +73,7 @@ Logging is done with Winston universal logging library.
 
 The logger uses the winston-daily-rotate-file to archive log files if used in a debug level for a longer period of time. In addition, the logger can also be controlled via the NODE_ENV environment variable. If set to "debug", the log messages also written to stdout, regardless of whether the filename parameter is set or not.
 
-##### SSH section
+### SSH section
 The following configuration enables an SSH tunnel to be created if required, which is started as a child process.
 
 |Parameter|Description|
