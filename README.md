@@ -55,12 +55,6 @@ AIS Tools initializes the database with the necessary collections and more impor
 
 ### Dispatcher section
 The only configuration option is the the port number of the UDP stream with AIVDM/AIVDO Protocol Reports.
-
-The below image illustrates, how detailed a vessels voyage can be visualized in an area, from which a good reception of AIS Signals is possible. In the shown example, every 2s a position report is recorded.
-<p style="text-align: center; margin-bottom: 0;font-size: 70%;font-style: italic;">![A harbor ferry at the "Landungsbrücken" jetty.
-](https://img.3epnm.de/image/27d8a59d3ed4356b685e4609184f85f2?polygon=[{x:8,y:134},{x:1500,y:134},{x:1500,y:800},{x:8,y:800}]&width=400)
-A harbor ferry at the "Landungsbrücken" jetty.
-</p>
  
 ### Logger section
 Logging is done with Winston universal logging library. 
