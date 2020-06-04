@@ -49,7 +49,7 @@ The configuration file has the following content, which is explained below.
     }
 }
 ```
-##### Database section
+### Database section
 The configuration of the database is as follows:
 
 |Parameter|Description|
@@ -61,7 +61,7 @@ The configuration of the database is as follows:
 
 AIS Tools initializes the database with the necessary collections and more important creates the necessary indexes. Default documents and position documents expire after one day and position documents are set with a geospatial index. Shipdata documents do not expire and will be updated if a new report is received.
 
-##### Dispatcher section
+### Dispatcher section
 In the dispatcher section, the configuration the AIShub service is done:
 
 |Parameter|Description|
@@ -70,7 +70,7 @@ In the dispatcher section, the configuration the AIShub service is done:
 |timeout<br><br>|The timeout between two API calls. In the example above, 61s is configured which is suitable for AIShub|
 |rest<br><br>|In this subsection, the username for the api request as well as the desired geographic boundery box is configured for which vessels and positions are requested. Refer [API Documentation](http://www.aishub.net/api) page at AIShub. for more details about this service|
 
-##### Logger section
+### Logger section
 Logging is done with Winston universal logging library. 
 
 |Parameter|Description|
@@ -81,7 +81,7 @@ Logging is done with Winston universal logging library.
 
 The logger uses the winston-daily-rotate-file to archive log files if used in a debug level for a longer period of time. In addition, the logger can also be controlled via the NODE_ENV environment variable. If set to "debug", the log messages also written to stdout, regardless of whether the filename parameter is set or not.
 
-##### SSH section
+### SSH section
 The following configuration enables an SSH tunnel to be created if required, which is started as a child process.
 
 |Parameter|Description|
@@ -90,5 +90,5 @@ The following configuration enables an SSH tunnel to be created if required, whi
 |forward|Which port from the source is forwarded to a port at the destination|
 |host|The host of the source|
 
-#### Start the Service
+## Start the Service
 Once the configuration is done, the service can be started with `npm start` 
